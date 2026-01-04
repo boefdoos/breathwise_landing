@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research: App for Chronic Hyperventilation</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Help us build the first AI-powered app for chronic hyperventilation (with comorbid anxiety and digestive issues). Share your experience in our research survey.">
+    <meta name="keywords" content="hyperventilation, air hunger, breathing problems, anxiety, GERD, chronic breathing disorder">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="BreathWise Research - Chronic Hyperventilation Study">
+    <meta property="og:description" content="Help build an AI-powered app that could change how chronic hyperventilation is treated.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00b894;
+            --primary-dark: #00a884;
+            --secondary: #00cec9;
+            --dark: #2d3436;
+            --gray: #636e72;
+            --light-gray: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background: white;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Cookie Consent Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #2d3436;
+            color: white;
+            padding: 25px;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.3);
+            z-index: 10000;
+            display: none;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .cookie-banner.show {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .cookie-text h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .cookie-text p {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .cookie-text a {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .cookie-btn.accept-all {
+            background: var(--primary);
+            color: white;
+        }
+
+        .cookie-btn.accept-all:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .cookie-btn.reject-all {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cookie-btn.reject-all:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .cookie-btn.customize {
+            background: var(--gray);
+            color: white;
+        }
+
+        .cookie-btn.customize:hover {
+            background: #4a5568;
+        }
+
+        /* Cookie Settings Modal */
+        .cookie-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 10001;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .cookie-modal.show {
+            display: flex;
+        }
+
+        .cookie-modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            color: var(--dark);
+        }
+
+        .cookie-modal h2 {
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .cookie-category {
+            border: 2px solid var(--light-gray);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .cookie-category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .cookie-category h3 {
+            font-size: 16px;
+            color: var(--dark);
+        }
+
+        .cookie-toggle {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+
+        .cookie-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .cookie-toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 26px;
+        }
+
+        .cookie-toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        .cookie-toggle input:checked + .cookie-toggle-slider {
+            background-color: var(--primary);
+        }
+
+        .cookie-toggle input:checked + .cookie-toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        .cookie-toggle input:disabled + .cookie-toggle-slider {
+            background-color: var(--primary);
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .cookie-category p {
+            font-size: 14px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .cookie-category .required-badge {
+            display: inline-block;
+            background: var(--light-gray);
+            color: var(--gray);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .cookie-modal-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid var(--light-gray);
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        /* Simple Hero */
+        .hero {
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(28px, 5vw, 42px);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2.5vw, 20px);
+            margin-bottom: 30px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 16px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            font-size: clamp(24px, 4vw, 32px);
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        /* Problem Section - Simple */
+        .problem-section {
+            background: white;
+        }
+
+        .symptom-list {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .symptom-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--light-gray);
+            font-size: 18px;
+            color: var(--gray);
+        }
+
+        .symptom-list li:last-child {
+            border-bottom: none;
+        }
+
+        .symptom-list strong {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .quote-simple {
+            background: var(--light-gray);
+            border-left: 4px solid var(--primary);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            font-style: italic;
+            color: var(--gray);
+        }
+
+        /* Solution Section - Minimal */
+        .solution-section {
+            background: var(--light-gray);
+        }
+
+        .solution-section p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        /* About Thomas - Integrated */
+        .about-simple {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .about-content {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .about-photo {
+            flex-shrink: 0;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--secondary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .about-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+        }
+
+        .about-text h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .about-text p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .contact-simple {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--light-gray);
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .contact-simple a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-simple a:hover {
+            text-decoration: underline;
+        }
+
+        /* Why Help Section - Simple List */
+        .why-help {
+            background: var(--primary);
+            color: white;
+        }
+
+        .why-help .section-title {
+            color: white;
+        }
+
+        .benefit-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .benefit-list li {
+            padding: 15px 0;
+            font-size: 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .benefit-list li i {
+            margin-top: 4px;
+            font-size: 20px;
+            opacity: 0.9;
+        }
+
+        /* Survey Section - Clean */
+        .survey-section {
+            background: white;
+        }
+
+        .survey-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .consent-notice {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .consent-notice h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .consent-notice ul {
+            margin-left: 20px;
+            color: #856404;
+        }
+
+        .consent-notice li {
+            margin-bottom: 8px;
+        }
+
+        .consent-notice a {
+            color: #856404;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .survey-embed {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+
+        .survey-embed iframe {
+            width: 100%;
+            border: none;
+            min-height: 1600px;
+        }
+
+        /* Footer - Minimal */
+        .footer {
+            background: var(--dark);
+            color: rgba(255,255,255,0.8);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .privacy-links {
+            margin: 20px 0;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .privacy-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: opacity 0.3s;
+            font-size: 14px;
+        }
+
+        .privacy-links a:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cookie-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cookie-buttons {
+                width: 100%;
+            }
+
+            .cookie-btn {
+                flex: 1;
+            }
+
+            .cookie-modal-content {
+                padding: 25px;
+            }
+
+            .privacy-links {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .privacy-links a {
+                margin: 0;
+            }
+
+            .about-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .about-photo {
+                width: 120px;
+                height: 120px;
+                margin-bottom: 20px;
+            }
+
+            section {
+                padding: 40px 20px;
+            }
+
+            .hero {
+                padding: 40px 20px;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cookie Consent Banner -->
+    <div id="cookieBanner" class="cookie-banner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h3><i class="fas fa-cookie-bite"></i> We Respect Your Privacy</h3>
+                <p>
+                    We use cookies to improve your experience and collect anonymous statistics. 
+                    Your data is never sold. 
+                    <a href="privacy-policy.html" target="_blank">Read our privacy policy</a>
+                </p>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn accept-all" onclick="acceptAllCookies()">
+                    <i class="fas fa-check"></i> Accept All
+                </button>
+                <button class="cookie-btn reject-all" onclick="rejectAllCookies()">
+                    <i class="fas fa-times"></i> Necessary Only
+                </button>
+                <button class="cookie-btn customize" onclick="showCookieSettings()">
+                    <i class="fas fa-cog"></i> Customize
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Modal -->
+    <div id="cookieModal" class="cookie-modal">
+        <div class="cookie-modal-content">
+            <h2><i class="fas fa-cookie-bite"></i> Cookie Settings</h2>
+            <p style="margin-bottom: 20px; color: var(--gray);">
+                Choose which cookies we can use. You can change this later anytime.
+            </p>
+
+            <!-- Necessary Cookies -->
+            <div class="cookie-category">
+                <div class="cookie-category-header">
+                    <h3>
+                        Necessary Cookies
+                        <span class="required-badge">Always Active</span>
+                    </h3>
+                    <label class="cookie-toggle">
+                        <input type="checkbox" checked disabled>
+                        <span class="cookie-toggle-slider"></span>
+                    </label>
+                </div>
+                <p>
+                    These cookies are essential for basic website functionality, 
+                    like remembering your cookie choice. Cannot be disabled.
+                </p>
+            </div>
+
+            <!-- Analytics Cookies -->
+            <div class="cookie-category">
+                <div class="cookie-category-header">
+                    <h3>Analytics Cookies</h3>
+                    <label class="cookie-toggle">
+                        <input type="checkbox" id="analyticsToggle">
+                        <span class="cookie-toggle-slider"></span>
+                    </label>
+                </div>
+                <p>
+                    Help us understand how visitors use the website through anonymous statistics 
+                    (Google Analytics). No personal identification.
+                </p>
+            </div>
+
+            <!-- Marketing Cookies (future) -->
+            <div class="cookie-category">
+                <div class="cookie-category-header">
+                    <h3>Marketing Cookies</h3>
+                    <label class="cookie-toggle">
+                        <input type="checkbox" id="marketingToggle" disabled>
+                        <span class="cookie-toggle-slider"></span>
+                    </label>
+                </div>
+                <p>
+                    Currently not used. This may change in the future.
+                </p>
+            </div>
+
+            <div class="cookie-modal-footer">
+                <button class="cookie-btn reject-all" onclick="rejectAllCookies()">
+                    Necessary Only
+                </button>
+                <button class="cookie-btn accept-all" onclick="saveCustomCookieSettings()">
+                    Save Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Struggling with air hunger,<br> yawning, or sighing?</h1>
+            <p>
+                Help us build the first AI-powered app for chronic hyperventilation with 
+                anxiety and digestive issues. Your 5-minute survey could help thousands.
+            </p>
+            <a href="#survey" class="cta-button">
+                <i class="fas fa-clipboard-list"></i> Take the Survey
+            </a>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="container">
+            <h2 class="section-title">Does this sound familiar?</h2>
+            
+            <ul class="symptom-list">
+                <li><strong>Constant feeling you can't take a satisfying breath</strong>, no matter how deep you breathe</li>
+                <li><strong>Frequent yawning or sighing</strong>, to the point it's exhausting and frustrating</li>
+                <li><strong>Your test results come back as 'normal'</strong> but you're still suffering</li>
+                <li><strong>You've tried several medications</strong> but nothing seems to really work</li>
+            </ul>
+
+            <div class="quote-simple">
+                "I saw 10 specialists over 2 years. Thousands in medical bills. 
+                Nobody could tell me why I felt like I was suffocating all day every day."
+                <br><strong>Real patient story</strong>
+            </div>
+
+            <p style="text-align: center; font-size: 20px; color: var(--dark); margin-top: 30px;">
+                <strong>You're not alone. And there's hope.</strong>
+            </p>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution-section">
+        <div class="container">
+            <h2 class="section-title">How can we help?</h2>
+            
+            <p>
+                <strong>Our goal is to develop the first AI-powered platform designed specifically for chronic hyperventilation (combined with other conditions, like anxiety and digestive issues). We will work closely together with health professionals to obtain this goal.
+            </strong>
+            </p>
+            
+            <p>
+                Instead of generic breathing apps that don't understand your unique situation, 
+                we intend to use AI to identify your patterns, help you recognize triggers,
+                and recommend personalized treatments based on what's worked for other people in your situation.
+            </p>
+
+            <p>
+                Track symptoms in seconds. See patterns you never noticed. Get insights
+                that finally make sense of what you're experiencing.
+            </p>
+
+            <!-- About Thomas - Integrated Here -->
+            <div class="about-simple">
+                <div class="about-content">
+                    <div class="about-photo">
+                        <img src="thomas-photo.jpg" alt="Thomas - BreathWise founder">
+                    </div>
+                    <div class="about-text">
+                        <h3>Built by someone who gets it</h3>
+                        <p>
+                            Hi, I'm Thomas. I've dealt with long periods of constant air hunger and forced yawning for almost 20 years. 
+                            I saw countless doctors, tried 7 different anti-depressants, had dozens of therapy sessions, and tried multiple breathing techniques. 
+                            Some things helped, others didn't. No one seemed to really understand the problem, and it felt like an endless cycle in which I would eventually end up alone.
+                        </p>
+                        <p>
+                            I realized I had tremendous difficulty recognizing triggers and patterns, especially because thinking clearly felt nearly impossible. 
+                            I needed help with this on a daily basis. But there was no tool on the market that could provide the support that I needed. So I decided to build one.
+                        </p>
+                        <p>
+                             This tool, combined with the right medical and therapeutic care, will provide much quicker insight into your struggle and how to get better.
+                        </p>
+                        <p>
+                            I need your help to build this right. Your 5 minutes could help thousands of people like us finally get the jump start we've needed all along.
+                        </p>
+                        <div class="contact-simple">
+                            <i class="fas fa-envelope"></i> <a href="mailto:troostberg@gmail.com">troostberg@gmail.com</a>
+                            <span style="margin: 0 10px;">•</span>
+                            <i class="fas fa-map-marker-alt"></i> Ostend, Belgium
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Help Section -->
+    <section class="why-help">
+        <div class="container">
+            <h2 class="section-title">Why participate?</h2>
+            
+            <ul class="benefit-list">
+                <li>
+                    <i class="fas fa-heart"></i>
+                    <span><strong>Help others</strong> - your story contributes to research that helps thousands</span>
+                </li>
+                <li>
+                    <i class="fas fa-users"></i>
+                    <span><strong>Shape the product</strong> - your feedback directly influences what we build</span>
+                </li>
+                <li>
+                    <i class="fas fa-rocket"></i>
+                    <span><strong>First to try beta</strong> - be among the first to experience the solution</span>
+                </li>
+
+            </ul>
+        </div>
+    </section>
+
+    <!-- Survey Section -->
+    <section id="survey" class="survey-section">
+        <div class="container">
+            <div class="survey-container">
+                <h2 class="section-title">Research Survey</h2>
+                <p style="text-align: center; color: var(--gray); margin-bottom: 20px;">
+                    Takes 5 minutes. All responses are anonymous and confidential.
+                </p>
+                
+                <!-- Explicit Consent Notice -->
+                <div class="consent-notice">
+                    <h4>
+                        <i class="fas fa-info-circle"></i>
+                        Data Processing Information
+                    </h4>
+                    <ul>
+                        <li><strong>Purpose:</strong> Research validation for AI tool development</li>
+                        <li><strong>Data:</strong> Symptoms, treatment history, preferences (anonymous)</li>
+                        <li><strong>Retention:</strong> Maximum 3 years, or earlier upon request</li>
+                        <li><strong>Rights:</strong> Access, correction, deletion at any time</li>
+                        <li><strong>Voluntary:</strong> Participation is completely voluntary</li>
+                    </ul>
+                    <p style="margin-top: 15px; font-weight: 600;">
+                        By completing the form, you give <strong>explicit consent</strong> 
+                        for processing this health data per our 
+                        <a href="privacy-policy.html" target="_blank">privacy policy</a>.
+                    </p>
+                </div>
+
+                <!-- Survey Embed -->
+                <div class="survey-embed">
+                    <iframe 
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSdqz6f5SPZZpendAyQIlRlnF9kxNz8oJkWWkuM0Lrpx-HulUw/viewform?embedded=true" 
+                        width="800" 
+                        height="2200" 
+                        frameborder="0" 
+                        marginheight="0" 
+                        marginwidth="0">
+                        Loading…
+                    </iframe>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px solid var(--light-gray);">
+                    <p style="color: var(--gray); font-size: 14px;">
+                        <i class="fas fa-lock"></i>
+                        Your data is encrypted and never shared. You can delete your information anytime.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p><strong>BreathWise Research</strong></p>
+            <p>Building AI-powered tool for chronic hyperventilation through patient-driven research.</p>
+
+            <div class="privacy-links">
+                <a href="privacy-policy.html" target="_blank">
+                    <i class="fas fa-shield-alt"></i> Privacy Policy
+                </a>
+                <a href="#" onclick="showCookieSettings(); return false;">
+                    <i class="fas fa-cookie-bite"></i> Cookie Settings
+                </a>
+                <a href="/cdn-cgi/l/email-protection#3246405d5d41465057405572555f535b5e1c515d5f">
+                    <i class="fas fa-envelope"></i> Contact
+                </a>
+            </div>
+
+            <p style="font-size: 13px; opacity: 0.7; margin-top: 20px;">
+                This is an early-stage research project. Not medical advice. 
+                Always consult qualified healthcare professionals.
+            </p>
+
+            <p style="font-size: 13px; opacity: 0.6; margin-top: 20px;">
+                © 2026 BreathWise Research. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Cookie Management -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Cookie Management System
+        const COOKIE_NAME = 'breathwise_cookie_consent';
+        const CONSENT_VERSION = '1.0';
+
+        // Check if consent was already given
+        function checkCookieConsent() {
+            const consent = getCookie(COOKIE_NAME);
+            
+            if (!consent) {
+                setTimeout(() => {
+                    document.getElementById('cookieBanner').classList.add('show');
+                }, 1000);
+            } else {
+                const preferences = JSON.parse(consent);
+                applyConsent(preferences);
+            }
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = `expires=${date.toUTCString()}`;
+            document.cookie = `${name}=${value};${expires};path=/;SameSite=Lax`;
+        }
+
+        function acceptAllCookies() {
+            const consent = {
+                version: CONSENT_VERSION,
+                necessary: true,
+                analytics: true,
+                marketing: false,
+                timestamp: new Date().toISOString()
+            };
+            
+            saveConsent(consent);
+            applyConsent(consent);
+            hideCookieBanner();
+        }
+
+        function rejectAllCookies() {
+            const consent = {
+                version: CONSENT_VERSION,
+                necessary: true,
+                analytics: false,
+                marketing: false,
+                timestamp: new Date().toISOString()
+            };
+            
+            saveConsent(consent);
+            applyConsent(consent);
+            hideCookieBanner();
+        }
+
+        function saveCustomCookieSettings() {
+            const consent = {
+                version: CONSENT_VERSION,
+                necessary: true,
+                analytics: document.getElementById('analyticsToggle').checked,
+                marketing: document.getElementById('marketingToggle').checked,
+                timestamp: new Date().toISOString()
+            };
+            
+            saveConsent(consent);
+            applyConsent(consent);
+            hideModal();
+            hideCookieBanner();
+        }
+
+        function saveConsent(consent) {
+            setCookie(COOKIE_NAME, JSON.stringify(consent), 365);
+        }
+
+        function applyConsent(preferences) {
+            if (preferences.analytics) {
+                enableGoogleAnalytics();
+            } else {
+                disableGoogleAnalytics();
+            }
+        }
+
+        function enableGoogleAnalytics() {
+            if (!window.gaLoaded) {
+                // Add your Google Analytics code here
+                window.gaLoaded = true;
+                console.log('Google Analytics enabled');
+            }
+        }
+
+        function disableGoogleAnalytics() {
+            window['ga-disable-G-XXXXXXXXXX'] = true;
+            console.log('Google Analytics disabled');
+        }
+
+        function showCookieSettings() {
+            const consent = getCookie(COOKIE_NAME);
+            if (consent) {
+                const preferences = JSON.parse(consent);
+                document.getElementById('analyticsToggle').checked = preferences.analytics;
+                document.getElementById('marketingToggle').checked = preferences.marketing;
+            }
+            
+            document.getElementById('cookieModal').classList.add('show');
+        }
+
+        function hideModal() {
+            document.getElementById('cookieModal').classList.remove('show');
+        }
+
+        function hideCookieBanner() {
+            document.getElementById('cookieBanner').classList.remove('show');
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            checkCookieConsent();
+            
+            // Modal click-outside-to-close
+            document.getElementById('cookieModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    hideModal();
+                }
+            });
+
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
